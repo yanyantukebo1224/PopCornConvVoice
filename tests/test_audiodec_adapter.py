@@ -17,7 +17,9 @@ class FakeTensor:
 
     def __getitem__(self, key):
         self.slices.append(key)
-        return self
+        end = key[-1].stop if isinstance(key, tuple) and isinstance(key[-1], slice) else None
+        length = self.shape[-1] if end is None else min(self.shape[-1], end)
+        return FakeTensor((*self.shape[:-1], length))
 
 
 class FakeEncoder:
@@ -43,7 +45,7 @@ class FakeDecoder:
 
     def decode(self, quantized):
         self.calls.append(("decode", quantized))
-        return FakeTensor((1, 1, 999))
+        return FakeTensor((1, 1, 6000))
 
 
 class FakeTorch:
@@ -74,7 +76,7 @@ def test_convert_runs_encoder_quantizer_lookup_and_target_decoder():
 
     output = converter.convert(waveform)
 
-    assert output.shape == (1, 1, 999)
+    assert output.shape == (1, 1, 4800)
     assert converter._codec.tx_encoder.calls == [
         "encode",
         ("quantize", "encoded"),
