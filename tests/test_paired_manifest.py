@@ -1,7 +1,5 @@
 import json
 from pathlib import Path
-from types import SimpleNamespace
-
 import pytest
 
 from popcorn_conv_voice.paired_manifest import AudioMetadata, load_paired_manifest
