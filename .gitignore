@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local datasets and model artifacts (never commit private voice data)
+data/
+datasets/
+checkpoints/
+weights/
+runs/
+outputs/
+*.wav
+*.flac
+*.mp3
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.safetensors
